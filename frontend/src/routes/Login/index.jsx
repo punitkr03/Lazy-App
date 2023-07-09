@@ -40,15 +40,17 @@ export default function Login() {
                 transition={{ duration: 0.8, type: "spring" }}
                 className="bg-gray-700 p-8 rounded-lg shadow-lg flex flex-col"
               > 
-              <div className="justify-between flex mb-4">
-                <h1 className="text-2xl text-green-500 font-bold ml-[4.5rem] -mt-4">Login</h1>
-                <button className="-mt-4" onClick={handleClose}>
-                  <svg className="w-4 h-5 text-purple-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+              <div className="grid grid-cols-3 justify-center mb-4">
+                <h1 className="text-2xl col-start-2 text-green-500 font-bold">Login</h1>
+                <button className="col-start-3" onClick={handleClose}>
+                  <div className="flex justify-end">
+                  <svg className="w-4 h-4 justify-center text-purple-600" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
                     <path stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
                   </svg>
+                  </div>
                 </button>
               </div>
-                <div className="flex flex-row mb-4">
+                <div className="flex flex-col mb-4">
                   <input
                     type="email"
                     placeholder="Email"
