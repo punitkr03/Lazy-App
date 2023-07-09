@@ -28,13 +28,6 @@ export default function Login() {
       {isVisible && (
         <>
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 0.7 }}
-            transition={{ duration: 0.3 }}
-            className="fixed top-0 left-0 right-0 bottom-0 bg-gray-900 backdrop-blur-lg z-10"
-          />
-
-          <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
@@ -44,7 +37,7 @@ export default function Login() {
               initial={{ y: -100 }}
               animate={{ y: 0 }}
               transition={{ duration: 0.8, type: "spring" }}
-              className="bg-gray-700 p-8 rounded-lg shadow-lg flex flex-col"
+              className="bg-gray-700 p-8 rounded-lg shadow-lg flex flex-col max-w-sm"
             > 
             <div className="grid grid-cols-4 justify-center mb-4">
               <h1 className="text-2xl col-start-2 col-span-2 text-center text-green-500 font-bold">SignUp</h1>
@@ -56,19 +49,19 @@ export default function Login() {
                 </div>
               </button>
             </div>
-            <div className="flex gap-2 mb-4 justify-evenly">
-              <div className="">
+            <div className="flex gap-2 mb-4">
+              <div className="w-1/2">
                 <input
                   type="text"
                   placeholder="First name"
-                  className="border bg-amber-100 rounded-lg py-2 px-2"
+                  className="bg-amber-100 rounded-lg py-2 px-2 w-full"
                   />
               </div>
-              <div className="">
+              <div className="w-1/2">
                 <input
                   type="text"
                   placeholder="Last name"
-                  className="border bg-amber-100 rounded-lg py-2 px-2"
+                  className=" bg-amber-100 rounded-lg py-2 px-2 w-full"
                   />
               </div>
             </div>
