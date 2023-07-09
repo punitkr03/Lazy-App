@@ -1,7 +1,7 @@
 import Navbar from "../../components/Navbar"
 import { motion } from "framer-motion";
 
-export default function Gigs() {
+export default function AllGigs() {
   return (
     <div className="bg-gray-900 overflow-hidden">
       <motion.div>

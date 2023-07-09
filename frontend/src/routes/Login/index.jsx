@@ -16,6 +16,11 @@ export default function Login() {
       setIsVisible(false);
       navigate("/signup")
     }
+
+    const handleLogin = () => {
+      setIsVisible(false);
+      navigate("/AllGigs")
+    }
   
     return (
       <div className="relative flex justify-center items-center w-screen h-screen bg-gray-900">
@@ -63,14 +68,16 @@ export default function Login() {
                     placeholder="Password"
                     className="border bg-amber-100 rounded-lg py-2 px-4"
                   />
+                  <a className="text-sm text-left mt-1 text-blue-300 hover:underline" href='#'>Forgot Password?</a>
                 </div>
-                <div className="flex flex-col -mb-3">
-                  <button
-                    className="bg-purple-600 text-white rounded-lg py-2 px-4 hover:bg-purple-700 focus:bg-green-700 hover:ring-2 hover:ring-black
+                <div className="flex flex-col -mb-3 -mt-2">
+                  <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    className="bg-purple-600 text-white font-semibold rounded-lg py-2 px-4 hover:bg-purple-700 focus:bg-green-700
                     mb-2"
                   >
                     Login
-                  </button>
+                  </motion.button>
                   <span className="text-sm text-center">Not a member yet? <a className="text-blue-300 hover:underline" href='#' onClick={handleSignUp}>SignUp</a> </span>
                 <div/>
                 </div>
