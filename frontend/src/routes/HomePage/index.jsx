@@ -1,14 +1,17 @@
-import { useNavigate } from 'react-router-dom';
 import { motion } from "framer-motion";
 import Footer from "../../components/Footer";
+import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
+  console.log("Rendered")
   const navigate = useNavigate();
 
-  function navigateToAllGigs() {
-    navigate('/gigs');
+  const handleLoginClick = () => {
+    navigate("/login")
   }
-
+  const handleSignUpClick = () => {
+    navigate("/signup")
+  }
   return (
     <>
       <div className="flex flex-col justify-center items-center w-full h-screen font-semibold text-6xl bg-gray-900">
@@ -42,24 +45,24 @@ export default function HomePage() {
           className="text-center"
         >
           <motion.button
-            onClick={navigateToAllGigs}
-            className="text-xl bg-green-600 w-25 h-10 my-10 mx-2 px-3 rounded-xl hover:bg-green-500 "
+            onClick={handleLoginClick}
+            className="text-xl bg-green-600 w-25 h-10 my-10 mx-2 px-3 rounded-xl hover:bg-green-500"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
           >
-          Login 
+            Login
           </motion.button>
           <motion.button
-            onClick={navigateToAllGigs}
-            className="text-xl bg-green-600 w-25 h-10 my-10 mx-2 px-3 rounded-xl hover:bg-green-500 "
+            onClick={handleSignUpClick}
+            className="text-xl bg-green-600 w-25 h-10 my-10 mx-2 px-3 rounded-xl hover:bg-green-500"
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            >
-              SignUp
+          >
+            SignUp
           </motion.button>
         </motion.div>
       </div>
       <Footer />
     </>
-  );
-}
+  )
+  }
