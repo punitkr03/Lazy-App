@@ -3,7 +3,6 @@ import Footer from "../../components/Footer";
 import { useNavigate } from "react-router-dom";
 
 export default function HomePage() {
-  console.log("Rendered")
   const navigate = useNavigate();
 
   const handleLoginClick = () => {
