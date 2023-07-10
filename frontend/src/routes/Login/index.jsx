@@ -74,7 +74,7 @@ export default function Login() {
                   <motion.button
                     whileHover={{ scale: 1.1 }}
                     className="bg-purple-600 text-white font-semibold rounded-lg py-2 px-4 hover:bg-purple-700 focus:bg-green-700
-                    mb-2"
+                    mb-2" onClick={handleLogin}
                   >
                     Login
                   </motion.button>
