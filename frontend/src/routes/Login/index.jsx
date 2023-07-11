@@ -19,7 +19,7 @@ export default function Login() {
 
     const handleLogin = () => {
       setIsVisible(false);
-      navigate("/AllGigs")
+      navigate("/allGigs")
     }
   
     return (

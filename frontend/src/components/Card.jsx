@@ -52,11 +52,11 @@ export default function Card({type, payout}) {
         className="w-full max-w-sm h-[400px] flex flex-col justify-end rounded-lg shadow bg-gray-800 border-gray-700"
       >
         <a href="#">
-        <div className="flex p-1 h-auto justify-center">
+        <div className="flex p-2 m-4 max-h-56 justify-center">
           <img
-            className="z-20 rounded-t-lg opacity-90"
+            className="z-20 rounded-t-lg opacity-70"
             src="/misc.webp"
-            alt="food image"
+            alt="misc image"
             />
           </div>
         </a>
