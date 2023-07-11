@@ -3,13 +3,13 @@ import { motion } from "framer-motion";
 export default function Navbar() {
   return (
     <>
-    <div className="grid grid-col-6 grid-flow-col w-full fixed p-2 bg-gray-900">
+    <div className="grid grid-col-6 grid-flow-col w-full fixed p-2 bg-gray-900 z-50">
       {/* gigs */}
       <div className="col-start-2 col-span-4 flex justify-evenly bg-gray-800 rounded-2xl">
-        <motion.button 
+        <motion.button
         initial={{ x: -200, opacity: 0 }}
-        animate={{ x: 0, opacity: 1, transition:{ duration: 1 } }}
         whileHover={{ scale: 1.1 }}
+        animate={{ x: 0 , opacity: 1, transition:{ duration: 1 } }}
         className="text-gray-400 p-2 rounded-lg focus:text-white font-semibold"
         > 
           All Gigs
