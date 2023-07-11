@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
 
 Card.propTypes = {
-  type: PropTypes.string.isRequired,
+  type: PropTypes.string,
   payout: PropTypes.number.isRequired,
 };
 

@@ -6,7 +6,7 @@ export default function Info() {
   const navigate = useNavigate();
 
   const handleStart = () => {
-    navigate('/allGigs');
+    navigate('/gigs');
   };
 
   return (

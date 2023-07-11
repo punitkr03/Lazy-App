@@ -1,6 +1,16 @@
 import { motion } from "framer-motion";
+import PropTypes from 'prop-types';
 
-export default function Navbar() {
+Navbar.propTypes = {
+  setActiveTab: PropTypes.func.isRequired,
+}
+
+export default function Navbar({setActiveTab, activeTab}) {
+
+  const handleColor1 = activeTab===1 ? "text-white" : "text-gray-400"
+  const handleColor2 = activeTab===2 ? "text-white" : "text-gray-400"
+  const handleColor3 = activeTab===3 ? "text-white" : "text-gray-400"
+
   return (
     <>
     <div className="grid grid-col-6 grid-flow-col w-full fixed p-2 bg-gray-900 z-50">
@@ -11,24 +21,33 @@ export default function Navbar() {
         whileHover={{ scale: 1.1 }}
         animate={{ x: 0 , opacity: 1, transition:{ duration: 1 } }}
         className="text-gray-400 p-2 rounded-lg focus:text-white font-semibold"
+        onClick={() => setActiveTab(1)}
         > 
+        <div className={handleColor1}>
           All Gigs
+        </div>
         </motion.button>
         <motion.button
         initial={{ y: -200, opacity: 0 }}
         whileHover={{ scale: 1.1 }}
         animate={{ y: 0 , opacity: 1, transition:{ duration: 1 } }}
         className="text-gray-400 p-2 rounded-lg focus:text-white font-semibold"
+        onClick={() => setActiveTab(2)}
         >  
+        <div className={handleColor2}>
           My Gigs
+          </div>
         </motion.button>
         <motion.button
         initial={{ x: 200, opacity: 0 }}
         whileHover={{ scale: 1.1 }}
         animate={{ x: 0 , opacity: 1, transition:{ duration: 1 } }}
-        className="text-gray-400 p-2 rounded-lg focus:text-white font-semibold" 
+        className="text-gray-400 p-2 rounded-lg focus:text-white font-semibold"
+        onClick={() => setActiveTab(3)}
         >  
+        <div className={handleColor3}>
           Completed
+          </div>
         </motion.button>
       </div>
         {/* util */}
