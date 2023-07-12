@@ -14,6 +14,10 @@ export default function Gigs() {
         <Card type={"food"} payout={50}/>
         <Card type={"food"} payout={50}/>
         <Card payout={50}/>
+        <Card payout={50}/>
+        <Card payout={50}/>
+        <Card payout={50}/>
+        <Card payout={50}/>
         <Card type={"food"} payout={50}/>
         <Card type={"food"} payout={50}/>
         </>
