@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Navbar from "../../components/Navbar"
 import Card from "../../components/Card"
 import { motion } from "framer-motion";
@@ -11,7 +11,7 @@ export default function Gigs() {
   const navigate = useNavigate()
   
   function createGig () {
-    navigate('/profile')
+    navigate('/create')
   } 
 
   const getCards = () => {
