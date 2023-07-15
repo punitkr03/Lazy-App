@@ -91,6 +91,14 @@ export default function Info() {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full"
+              onClick={handleHome}
+            >
+              Edit
+            </motion.button>
+            <motion.button
+              whileHover={{ scale: 1.1 }}
+              whileTap={{ scale: 0.9 }}
+              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full"
               onClick={handleLogout}
             >
               Logout
