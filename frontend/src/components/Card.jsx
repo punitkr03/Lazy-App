@@ -2,12 +2,14 @@ import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
 
 Card.propTypes = {
-  type: PropTypes.string,
+  category: PropTypes.string,
   payout: PropTypes.number.isRequired,
+  username: PropTypes.string.isRequired,
+  description: PropTypes.string.isRequired
 };
 
-export default function Card({type, payout}) {
-  if(type === 'food') {
+export default function Card({category, payout, username, description}) {
+  if(category === 'food') {
     return (
       <motion.div
         initial={{ y: 100, opacity: 0 }}
@@ -26,13 +28,16 @@ export default function Card({type, payout}) {
         </a>
         <div className="px-5 pb-5">
           <a href="#">
-            <h5 className="text-xl font-semibold tracking-tight text-white">
+            <h5 className="text-xl font-semibold text-purple-400">
               Food
             </h5>
-            <p className="text-white tracking-tighter line-clamp-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias ipsam quasi aliquid, ut quaerat officiis iusto magni sunt incidunt voluptas?</p>
+            <p className="text-white tracking-tighter line-clamp-2">{description}</p>
+            <p className="text-green-400 tracking-tighter line-clamp-2 font-semibold">
+              Posted by: {username}
+            </p>
           </a>
           <div className="flex items-center justify-between">
-            <span className="text-3xl mt-2 font-bold text-white">{`₹${payout}`}</span>
+            <span className="text-3xl mt-2 font-bold text-amber-400">{`₹${payout}`}</span>
             <a
               href="#"
               className="text-white mt-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"
@@ -62,13 +67,16 @@ export default function Card({type, payout}) {
         </a>
         <div className="px-5 pb-5">
           <a href="#">
-            <h5 className="text-xl font-semibold tracking-tight text-white">
+            <h5 className="text-xl font-semibold text-purple-400">
               Misc
             </h5>
-            <p className="text-white tracking-tighter line-clamp-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestias ipsam quasi aliquid, ut quaerat officiis iusto magni sunt incidunt voluptas?</p>
+            <p className="text-white tracking-tighter line-clamp-2">{description}</p>
+            <p className="text-green-400 tracking-tighter line-clamp-2 font-semibold">
+              Posted by: {username}
+            </p>
           </a>
           <div className="flex items-center justify-between">
-            <span className="text-3xl mt-2 font-bold text-white">{`₹${payout}`}</span>
+            <span className="text-3xl mt-2 font-bold text-amber-400">{`₹${payout}`}</span>
             <a
               href="#"
               className="text-white mt-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"

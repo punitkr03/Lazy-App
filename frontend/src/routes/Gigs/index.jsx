@@ -7,6 +7,13 @@ import { useNavigate } from "react-router-dom";
 export default function Gigs() {
   const [activeTab, setActiveTab] = useState(1)
   const [isHovered, setIsHovered] = useState(false);
+  const [userData, setUserData] = useState({
+    username: "Punit kR",
+    category: "food",
+    title: "Lola",
+    description: "Get me foood to eaattttt!!!",
+    payout: "150"
+  });
 
   const navigate = useNavigate()
   
@@ -18,25 +25,26 @@ export default function Gigs() {
     if(activeTab===1) {
       return (
         <>
-        <Card type={"food"} payout={50}/>
-        <Card type={"food"} payout={50}/>
-        <Card type={"food"} payout={50}/>
-        <Card payout={50}/>
-        <Card payout={50}/>
-        <Card payout={50}/> 
-        <Card type={"food"} payout={50}/>
-        <Card type={"food"} payout={50}/>
+        <Card {...userData}/>
+        <Card {...userData}/>
+        <Card {...userData}/>
+        <Card type={"food"} payout={50} username={"Punit"}/>
+        <Card type={"food"} payout={50} username={"Punit"}/>
+        <Card type={"misc"} payout={60} username={"Punit"}/>
+        <Card type={"food"} payout={50} username={"Punit"}/>
         </>
       )
     } else if(activeTab===2) {
       return (
         <>
-        <Card payout={50}/>
-        <Card type={"food"} payout={50}/>
-        <Card payout={50}/>
-        <Card payout={50}/>
-        <Card payout={50}/>
-        <Card payout={50}/>
+        <Card type={"food"} payout={50} username={"Punit"}/>
+        <Card type={"food"} payout={50} username={"Punit"}/>
+        <Card type={"food"} payout={50} username={"Punit"}/>
+        <Card type={"food"} payout={50} username={"Punit"}/>
+        <Card type={"food"} payout={50} username={"Punit"}/>
+        <Card type={"food"} payout={50} username={"Punit"}/>
+        <Card type={"food"} payout={50} username={"Punit"}/>
+        <Card payout={50} username={"Lola"}/>
         </>
       )
     } else if(activeTab===3) {
