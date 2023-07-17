@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 
 export default function Info() {
   const navigate = useNavigate();
+  // const [ showModal, setShowModal ] = useState(false);
 
   const handleHome = () => {
     navigate('/gigs');
@@ -10,6 +11,10 @@ export default function Info() {
 
   const handleLogout = () => {
     navigate('/');
+  }
+
+  const handleEdit = () => {
+    setShowModal(true);
   }
 
   return (
@@ -91,7 +96,7 @@ export default function Info() {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full"
-              onClick={handleHome}
+              onClick={handleEdit}
             >
               Edit
             </motion.button>
