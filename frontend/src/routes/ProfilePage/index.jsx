@@ -1,9 +1,11 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { useState } from 'react';
+import EditProfile from '../../components/EditProfile';
 
 export default function Info() {
   const navigate = useNavigate();
-  // const [ showModal, setShowModal ] = useState(false);
+  const [ showModal, setShowModal ] = useState(false)
 
   const handleHome = () => {
     navigate('/gigs');
@@ -14,7 +16,7 @@ export default function Info() {
   }
 
   const handleEdit = () => {
-    setShowModal(true);
+    setShowModal(true)
   }
 
   return (
@@ -110,6 +112,9 @@ export default function Info() {
             </motion.button>
           </motion.div>
         </motion.div>
+        { showModal && 
+        <EditProfile setShowModal={setShowModal}/>
+        }
       </motion.div>
     </>
   );
