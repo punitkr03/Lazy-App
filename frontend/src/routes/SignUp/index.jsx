@@ -1,31 +1,74 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {motion} from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 import Footer from "../../components/Footer";
+//Appwrite iimports
+import { account, database } from "../../appwrite/appwriteConfig";
 
 export default function Login() {
-  const [isVisible, setIsVisible] = useState(true);
   const navigate = useNavigate();
 
   const handleClose = () => {
-    setIsVisible(false);
     navigate("/")
   }
 
   const handleLogin = () => {
-    setIsVisible(false);
     navigate("/login")
   }
+  const [password, setPassword] = useState("");
+  const [userdata, setUserData] = useState({
+    uuid: "",
+    fName: "",
+    lName: "",
+    email: "",
+    mobile: "",
+  });
 
-  const handleSignUp = () => {
-    setIsVisible(false);
-    navigate("/info")
+  useEffect(() => {
+    setUserData({
+      ...userdata,
+      uuid: uuidv4(),
+    })}, [])
+
+  const updateData = (e) => {
+    setUserData({
+      ...userdata,
+      [e.target.name]: e.target.value,
+    });
   }
 
+  const handleSignUp = (e) => {
+    e.preventDefault();
+    if(userdata.mobile.length !== 10) {
+      alert("Enter a valid mobile number")
+      return
+    }
+    const promise = account.create(
+      userdata.uuid,
+      userdata.email,
+      password,
+      userdata.fName+" "+userdata.lName,
+      )
+    promise.then(
+      function (response) {
+        console.log(response);
+        database.createDocument("64ba99103e72d6d3f111",
+        "64ba9940623e11b2a76a",
+        userdata.uuid,
+        userdata
+        )
+        navigate("/info")
+      },
+      function (error) {
+        console.log(error);
+        alert("Account creation failed")
+      })
+  }
 
   return (
     <div className="relative flex justify-center items-center w-screen h-screen bg-gray-900">
-      {isVisible && (
+      {true && (
         <>
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
@@ -52,45 +95,56 @@ export default function Login() {
             <div className="flex gap-2 mb-4">
               <div className="w-1/2">
                 <input
+                  name="fName"
                   type="text"
                   placeholder="First name"
                   className="bg-amber-100 rounded-lg py-2 px-2 w-full"
+                  onChange={updateData}
                   />
               </div>
               <div className="w-1/2">
                 <input
+                  name="lName"
                   type="text"
                   placeholder="Last name"
                   className=" bg-amber-100 rounded-lg py-2 px-2 w-full"
+                  onChange={updateData}
                   />
               </div>
             </div>
             <div className="flex flex-col mb-4">
                 <input
+                  name="email"
                   type="email"
                   placeholder="Email"
                   className="border bg-amber-100 rounded-lg py-2 px-4"
+                  onChange={updateData}
                   />
               </div>
               <div className="flex flex-col mb-4">
                 <input
+                  name="password"
                   type="password"
                   placeholder="Create password"
                   className="border bg-amber-100 rounded-lg py-2 px-4"
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <div className="flex flex-col mb-4">
                 <input
-                  type="text"
+                  name="mobile"
+                  type="tel"
                   placeholder="Mobile Number"
+                  pattern="[0-9]{10}"
                   className="border bg-amber-100 rounded-lg py-2 px-4"
+                  onChange={updateData}
                 />
               </div>
               <div className="flex flex-col -mb-3">
                 <motion.button
                   whileHover={{ scale: 1.05 }}
                   className="bg-purple-600 text-white font-semibold rounded-lg py-2 px-4 hover:bg-purple-700 focus:bg-green-700
-                  mb-2"
+                  mb-2" onClick={handleSignUp}
                 >
                   SignUp
                 </motion.button>

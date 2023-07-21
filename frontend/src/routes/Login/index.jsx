@@ -2,29 +2,47 @@ import { useState } from "react";
 import {motion} from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer";
+import { account } from "../../appwrite/appwriteConfig";
+
+//Firebase
 
 export default function Login() {
-    const [isVisible, setIsVisible] = useState(true);
     const navigate = useNavigate();
-  
+
+    const [userdata, setUserdata] = useState({
+      email: "",
+      password: "",
+    });
+
     const handleClose = () => {
-      setIsVisible(false);
       navigate("/")
     }
 
     const handleSignUp = () => {
-      setIsVisible(false);
       navigate("/signup")
     }
 
-    const handleLogin = () => {
-      setIsVisible(false);
-      navigate("/gigs")
+    const updateData = (e) => {
+      setUserdata({
+        ...userdata,
+        [e.target.name]: e.target.value,
+      });
+    }
+
+    const handleLogin = async (e) => {
+      e.preventDefault();
+      try {
+        await account.createEmailSession(userdata.email, userdata.password);
+        navigate("/gigs");
+      } catch (error) {
+        console.log(error);
+        alert("Login failed")
+      }
     }
   
     return (
       <div className="relative flex justify-center items-center w-screen h-screen bg-gray-900">
-        {isVisible && (
+        {true && (
           <>
             <motion.div
               initial={{ opacity: 0 }}
@@ -57,16 +75,20 @@ export default function Login() {
               </div>
                 <div className="flex flex-col mb-4">
                   <input
+                    name="email"
                     type="email"
                     placeholder="Email"
                     className="border bg-amber-100 rounded-lg py-2 px-4"
+                    onChange={updateData}
                   />
                 </div>
                 <div className="flex flex-col mb-4">
                   <input
+                    name="password"
                     type="password"
                     placeholder="Password"
                     className="border bg-amber-100 rounded-lg py-2 px-4"
+                    onChange={updateData}
                   />
                   <a className="text-sm text-left mt-1 text-blue-300 hover:underline" href='#'>Forgot Password?</a>
                 </div>
