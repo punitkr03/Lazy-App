@@ -2,7 +2,7 @@ import { useState } from "react";
 import {motion} from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer";
-import { account } from "../../appwrite/appwriteConfig";
+import { account, database } from "../../appwrite/appwriteConfig";
 
 //Firebase
 
@@ -28,18 +28,27 @@ export default function Login() {
         [e.target.name]: e.target.value,
       });
     }
-
     const handleLogin = async (e) => {
       e.preventDefault();
       try {
         await account.createEmailSession(userdata.email, userdata.password);
-        navigate("/gigs");
+        const currentUser = await account.get();
+        if(currentUser) {
+          const user = await database.getDocument("64ba99103e72d6d3f111","64ba9940623e11b2a76a",currentUser.$id);
+            localStorage.setItem("user", JSON.stringify({
+              id: user.$id,
+              name: user.fName+" "+user.lName,
+              email: user.email,
+              mobile: user.mobile,
+            }));
+            navigate("/gigs");
+        }
       } catch (error) {
         console.log(error);
         alert("Login failed")
       }
     }
-  
+
     return (
       <div className="relative flex justify-center items-center w-screen h-screen bg-gray-900">
         {true && (

@@ -3,7 +3,7 @@ import {motion} from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import Footer from "../../components/Footer";
-//Appwrite iimports
+//Appwrite imports
 import { account, database } from "../../appwrite/appwriteConfig";
 
 export default function Login() {
@@ -23,6 +23,7 @@ export default function Login() {
     lName: "",
     email: "",
     mobile: "",
+    about: "",
   });
 
   useEffect(() => {
@@ -40,7 +41,19 @@ export default function Login() {
 
   const handleSignUp = (e) => {
     e.preventDefault();
-    if(userdata.mobile.length !== 10) {
+    if(userdata.fName === "") {
+      alert("Enter a valid name")
+      return
+    }
+    else if(userdata.email === "") {
+      alert("Enter a valid email")
+      return
+    }
+    else if(password.length < 8) {
+      alert("Password must be atleast 8 characters long")
+      return
+    }
+    else if(userdata.mobile.length !== 10) {
       alert("Enter a valid mobile number")
       return
     }
@@ -51,16 +64,32 @@ export default function Login() {
       userdata.fName+" "+userdata.lName,
       )
     promise.then(
-      function (response) {
-        console.log(response);
+      function () {
         database.createDocument("64ba99103e72d6d3f111",
         "64ba9940623e11b2a76a",
         userdata.uuid,
         userdata
         )
-        navigate("/info")
       },
       function (error) {
+        console.log(error);
+        alert("Database creation failed")
+      })
+      .then(() => {
+        account.createEmailSession(userdata.email, password)
+      })
+      .then(() => {
+        localStorage.setItem("user", JSON.stringify({
+          id: userdata.uuid,
+          name: userdata.fName+" "+userdata.lName,
+          email: userdata.email,
+          mobile: userdata.mobile,
+        }));
+      })
+      .then(() => {
+        navigate("/gigs");
+      })
+      .catch((error) => {
         console.log(error);
         alert("Account creation failed")
       })
@@ -134,7 +163,7 @@ export default function Login() {
                 <input
                   name="mobile"
                   type="tel"
-                  placeholder="Mobile Number"
+                  placeholder="10 digit mobile number"
                   pattern="[0-9]{10}"
                   className="border bg-amber-100 rounded-lg py-2 px-4"
                   onChange={updateData}
