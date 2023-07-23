@@ -1,20 +1,24 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { database } from "../../appwrite/appwriteConfig"
+import { ID } from "appwrite"
 
 export default function Login() {
-  const [isVisible, setIsVisible] = useState(true);
+  const user = JSON.parse(localStorage.getItem("user"))
   const [formData, setFormData] = useState({
     category: "",
-    title: "",
     description: "",
-    payout: ""
+    postedBy: user.name,
+    payout: "",
+    isTakenUserId: null,
+    isCompleted: false,
+    creatorId: user.id,
   });
   const [isCategoryValid, setIsCategoryValid] = useState(true);
   const navigate = useNavigate();
 
   const handleClose = () => {
-    setIsVisible(false);
     navigate("/gigs");
   };
 
@@ -26,20 +30,28 @@ export default function Login() {
     }));
   };
 
+
   const handleSubmit = (event) => {
     event.preventDefault();
-
     if (formData.category === "") {
       setIsCategoryValid(false);
       return;
     } else {
         setIsCategoryValid(true)
     }
+    database.createDocument("64ba99103e72d6d3f111",
+    "64bbfa41435313f560e3",
+    ID.unique(),
+    formData,
+    )
+    .then(() => {
+      navigate("/gigs")
+    })
   };
 
   return (
     <div className="relative flex justify-center items-center w-screen h-screen bg-gray-900">
-      {isVisible && (
+      {true && (
         <>
           <motion.div
             initial={{ opacity: 0 }}
@@ -99,17 +111,6 @@ export default function Login() {
                   {!isCategoryValid && (
                     <p className="text-red-500 text-sm mt-1">Category is required</p>
                   )}
-                </div>
-                <div className="flex flex-col mb-4">
-                  <input
-                    type="text"
-                    name="title"
-                    value={formData.title}
-                    onChange={handleInputChange}
-                    placeholder="Title"
-                    className="border bg-amber-100 rounded-lg py-2 px-4"
-                    required
-                  />
                 </div>
                 <div className="flex flex-col mb-4">
                   <textarea

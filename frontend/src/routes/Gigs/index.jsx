@@ -1,61 +1,84 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar"
 import Card from "../../components/Card"
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
+import { database } from "../../appwrite/appwriteConfig"
 
 export default function Gigs() {
+  const navigate = useNavigate()
   const [activeTab, setActiveTab] = useState(1)
   const [isHovered, setIsHovered] = useState(false);
-  const [userData, setUserData] = useState({
-    username: "Punit kR",
-    category: "food",
-    title: "Lola",
-    description: "Get me foood to eaattttt!!!",
-    payout: "150"
-  });
 
-  const navigate = useNavigate()
+  const [allCards, setAllCards] = useState()
   
+  const getAllCards = async () => {
+    try {
+      const promise = await database.listDocuments("64ba99103e72d6d3f111","64bbfa41435313f560e3")
+      const data = promise.documents
+      setAllCards(data)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  
+  useEffect(() => {
+    getAllCards()
+  }, [])
+
+
   function createGig () {
     navigate('/create')
   } 
 
+  //Get current user from local storage
+  const user = JSON.parse(localStorage.getItem("user"))
+
+  //Filter the cards
+  const activeCards = allCards?.filter((card) => card.isTakenUserId === null)
+  const myCards = allCards?.filter((card) => card.isTakenUserId === user.id)
+  const completedCards = allCards?.filter((card) => card.isCompleted === true && card.isTakenUserId===user.id)
+
+  //Get cards based on active tab
   const getCards = () => {
     if(activeTab===1) {
       return (
         <>
-        <Card {...userData}/>
-        <Card {...userData}/>
-        <Card {...userData}/>
-        <Card type={"food"} payout={50} username={"Punit"}/>
-        <Card type={"food"} payout={50} username={"Punit"}/>
-        <Card type={"misc"} payout={60} username={"Punit"}/>
-        <Card type={"food"} payout={50} username={"Punit"}/>
+        {activeCards?.map((card) => (
+          <Card key={card.$id} 
+          payout={card.payout} 
+          username={card.username} 
+          description={card.description} 
+          category={card.category}
+          postedBy={card.postedBy}
+          />
+        ))}
         </>
       )
     } else if(activeTab===2) {
       return (
         <>
-        <Card type={"food"} payout={50} username={"Punit"}/>
-        <Card type={"food"} payout={50} username={"Punit"}/>
-        <Card type={"food"} payout={50} username={"Punit"}/>
-        <Card type={"food"} payout={50} username={"Punit"}/>
-        <Card type={"food"} payout={50} username={"Punit"}/>
-        <Card type={"food"} payout={50} username={"Punit"}/>
-        <Card type={"food"} payout={50} username={"Punit"}/>
-        <Card payout={50} username={"Lola"}/>
+        {myCards?.map((card) => (
+          <Card key={card.$id} 
+          payout={card.payout} 
+          username={card.username} 
+          description={card.description} 
+          postedBy={card.postedBy}
+          category={card.category}/>
+        ))}
         </>
       )
     } else if(activeTab===3) {
       return (
         <>
-        <Card payout={50}/>
-        <Card payout={50}/>
-        <Card payout={50}/>
-        <Card payout={50}/>
-        <Card type={"food"} payout={50}/>
-        <Card payout={50}/>
+        {completedCards?.map((card) => (
+          <Card key={card.$id} 
+          payout={card.payout} 
+          username={card.username} 
+          postedBy={card.postedBy}
+          description={card.description} 
+          category={card.category}/>
+        ))}
         </>
       )
     } 

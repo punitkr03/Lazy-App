@@ -18,6 +18,9 @@ export default function Info() {
   const handleEdit = () => {
     setShowModal(true)
   }
+  
+  const user = JSON.parse(localStorage.getItem("user"))
+  console.log(user)
 
   return (
     <>

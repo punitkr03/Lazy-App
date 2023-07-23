@@ -40,6 +40,7 @@ export default function Login() {
               name: user.fName+" "+user.lName,
               email: user.email,
               mobile: user.mobile,
+              about: user.about,
             }));
             navigate("/gigs");
         }

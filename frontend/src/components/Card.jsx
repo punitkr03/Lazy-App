@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 Card.propTypes = {
   category: PropTypes.string,
   payout: PropTypes.number.isRequired,
-  username: PropTypes.string.isRequired,
+  postedBy: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired
 };
 
-export default function Card({category, payout, username, description}) {
+export default function Card({category, description, postedBy, payout}) {
   if(category === 'food') {
     return (
       <motion.div
@@ -33,7 +33,7 @@ export default function Card({category, payout, username, description}) {
             </h5>
             <p className="text-white tracking-tighter line-clamp-2">{description}</p>
             <p className="text-green-400 tracking-tighter line-clamp-2 font-semibold">
-              Posted by: {username}
+              Posted by: {postedBy}
             </p>
           </a>
           <div className="flex items-center justify-between">
@@ -72,7 +72,7 @@ export default function Card({category, payout, username, description}) {
             </h5>
             <p className="text-white tracking-tighter line-clamp-2">{description}</p>
             <p className="text-green-400 tracking-tighter line-clamp-2 font-semibold">
-              Posted by: {username}
+              Posted by: {postedBy}
             </p>
           </a>
           <div className="flex items-center justify-between">
