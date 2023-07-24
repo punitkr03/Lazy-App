@@ -2,6 +2,9 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
 import { database } from "../appwrite/appwriteConfig";
+//Toast notification
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 EditProfile.propTypes = {
     setShowModal: PropTypes.func.isRequired
@@ -16,12 +19,14 @@ export default function EditProfile({setShowModal}) {
       database.updateDocument("64ba99103e72d6d3f111",
       "64ba9940623e11b2a76a",
       user.id,
-      {about: about},
-      ).then(() => {
+      {about: about})
+      .then(() => {
         localStorage.setItem("user", JSON.stringify({...user, about: about}))
-      }).then(() => {
         setShowModal(false)
-      })
+      },
+        () => {
+          toast.error("Error updating profile!")
+        })
     }
 
     const handleChange = (e) => {
@@ -99,6 +104,18 @@ export default function EditProfile({setShowModal}) {
               </form>
             </motion.div>
           </motion.div>
+          <ToastContainer
+            position="top-center"
+            autoClose={2000}
+            hideProgressBar={true}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+            />
         </>
     )
 }

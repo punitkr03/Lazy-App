@@ -3,8 +3,9 @@ import {motion} from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import Footer from "../../components/Footer";
 import { account, database } from "../../appwrite/appwriteConfig";
-
-//Firebase
+//Toast notification
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login() {
     const navigate = useNavigate();
@@ -28,6 +29,8 @@ export default function Login() {
         [e.target.name]: e.target.value,
       });
     }
+    const notify = () => toast.error("Invalid Credentials");
+
     const handleLogin = async (e) => {
       e.preventDefault();
       try {
@@ -45,8 +48,7 @@ export default function Login() {
             navigate("/gigs");
         }
       } catch (error) {
-        console.log(error);
-        alert("Login failed")
+        notify()
       }
     }
 
@@ -118,6 +120,18 @@ export default function Login() {
           </>
         )}
         <Footer />
+        <ToastContainer
+          position="top-center"
+          autoClose={2000}
+          hideProgressBar={true}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+          />
       </div>
     );
 }

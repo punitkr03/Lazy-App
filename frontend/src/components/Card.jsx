@@ -1,6 +1,9 @@
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
 import { database } from "../appwrite/appwriteConfig"
+//Toast notification
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 Card.propTypes = {
   category: PropTypes.string,
@@ -14,18 +17,23 @@ Card.propTypes = {
 
 export default function Card({category, description, postedBy, payout, creatorId, userId, cardId}) {
 
-  const handleAccept = () => {
+  const handleAccept = (e) => {
+    e.preventDefault()
     if(userId === creatorId) {
-      alert("You cannot accept your own gig!")
+      toast.error("You cannot accept your own gig!")
       return
     } else {
       database.updateDocument("64ba99103e72d6d3f111",
       "64bbfa41435313f560e3",
       cardId,
       {isTakenUserId: userId})
-      .then(() => {
+      .then(
+        function () {
           window.location.reload()
-      })
+        },
+        function () {
+          toast.error("Error accepting gig!")
+        })
     }
   }
 
@@ -107,6 +115,18 @@ export default function Card({category, description, postedBy, payout, creatorId
             </a>
           </div>
         </div>
+        <ToastContainer
+            position="top-center"
+            autoClose={2000}
+            hideProgressBar={true}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+            />
       </motion.div>
     );
   }

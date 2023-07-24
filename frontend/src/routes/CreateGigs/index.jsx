@@ -3,6 +3,9 @@ import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { database } from "../../appwrite/appwriteConfig"
 import { ID } from "appwrite"
+//Toast notification
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function Login() {
   const user = JSON.parse(localStorage.getItem("user"))
@@ -45,9 +48,14 @@ export default function Login() {
     ID.unique(),
     formData,
     )
-    .then(() => {
-      navigate("/gigs")
-    })
+    .then(
+      function() {
+        navigate("/gigs")
+      },
+      function() {
+        toast.error("Something went wrong.")
+      }
+    )
   };
 
   return (
@@ -113,15 +121,19 @@ export default function Login() {
                     <p className="text-red-500 text-sm mt-1">Category is required</p>
                   )}
                 </div>
-                <div className="flex flex-col mb-4">
+                <div className="flex flex-col">
                   <textarea
                     name="description"
                     value={formData.description}
                     onChange={handleInputChange}
                     placeholder="Description"
-                    className="border bg-amber-100 rounded-lg py-2 px-4 resize-none h-32"
+                    maxLength={80}
+                    className="border bg-amber-100 rounded-lg py-2 px-4 resize-none h-24"
                     required
                   />
+                  <p className="text-gray-300 font-medium text-right">
+                    {`${formData.description.length}/80`}
+                  </p>
                 </div>
                 <div className="flex flex-col mb-4">
                   <input
@@ -147,6 +159,18 @@ export default function Login() {
               </form>
             </motion.div>
           </motion.div>
+          <ToastContainer
+            position="top-center"
+            autoClose={2000}
+            hideProgressBar={true}
+            newestOnTop={false}
+            closeOnClick
+            rtl={false}
+            pauseOnFocusLoss
+            draggable
+            pauseOnHover
+            theme="dark"
+            />
         </>
       )}
     </div>

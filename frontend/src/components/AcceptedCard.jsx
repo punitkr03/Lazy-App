@@ -13,14 +13,15 @@ Card.propTypes = {
 
 export default function Card({category, description, postedBy, payout, id, creatorPhone}) {
 
-    const handleComplete = () => {
-        database.updateDocument("64ba99103e72d6d3f111",
-        "64bbfa41435313f560e3",
-        id,
-        {isCompleted: true})
-        .then(() => {
-            window.location.reload()
-        })
+    const handleComplete = (e) => {
+      e.preventDefault()
+      database.updateDocument("64ba99103e72d6d3f111",
+      "64bbfa41435313f560e3",
+      id,
+      {isCompleted: true})
+      .then(() => {
+          window.location.reload()
+      })
     }
     if(category === 'food') {
     return (
