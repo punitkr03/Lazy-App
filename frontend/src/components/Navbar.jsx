@@ -13,7 +13,8 @@ export default function Navbar({setActiveTab, activeTab}) {
   const handleColor1 = activeTab===1 ? "text-white" : "text-gray-400"
   const handleColor2 = activeTab===2 ? "text-white" : "text-gray-400"
   const handleColor3 = activeTab===3 ? "text-white" : "text-gray-400"
-
+  const handleColor4 = activeTab===4 ? "text-white" : "text-gray-400"
+  
   const handleClick = () => {
     navigate("/profile")
   }
@@ -46,13 +47,24 @@ export default function Navbar({setActiveTab, activeTab}) {
           </div>
         </motion.button>
         <motion.button
-        initial={{ x: 200, opacity: 0 }}
+        initial={{ y: -200, opacity: 0 }}
         whileHover={{ scale: 1.1 }}
-        animate={{ x: 0 , opacity: 1, transition:{ duration: 1 } }}
+        animate={{ y: 0 , opacity: 1, transition:{ duration: 1 } }}
         className="text-gray-400 p-2 rounded-lg focus:text-white font-semibold"
         onClick={() => setActiveTab(3)}
         >  
         <div className={handleColor3}>
+          Created Gigs
+          </div>
+        </motion.button>
+        <motion.button
+        initial={{ x: 200, opacity: 0 }}
+        whileHover={{ scale: 1.1 }}
+        animate={{ x: 0 , opacity: 1, transition:{ duration: 1 } }}
+        className="text-gray-400 p-2 rounded-lg focus:text-white font-semibold"
+        onClick={() => setActiveTab(4)}
+        >  
+        <div className={handleColor4}>
           Completed
           </div>
         </motion.button>

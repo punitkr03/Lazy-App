@@ -1,17 +1,27 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import PropTypes from "prop-types";
+import { database } from "../appwrite/appwriteConfig";
 
 EditProfile.propTypes = {
     setShowModal: PropTypes.func.isRequired
 }
 
 export default function EditProfile({setShowModal}) {
-
-    const [about, setAbout] = useState("")
+  const user = JSON.parse(localStorage.getItem("user"))
+    const [about, setAbout] = useState(user.about)
 
     const handleSubmit = (e) => {
-        setAbout(e.target.value)
+      e.preventDefault()
+      database.updateDocument("64ba99103e72d6d3f111",
+      "64ba9940623e11b2a76a",
+      user.id,
+      {about: about},
+      ).then(() => {
+        localStorage.setItem("user", JSON.stringify({...user, about: about}))
+      }).then(() => {
+        setShowModal(false)
+      })
     }
 
     const handleChange = (e) => {
@@ -70,9 +80,9 @@ export default function EditProfile({setShowModal}) {
                   <textarea
                     name="about"
                     value={about}
-                    onChange={handleChange}
                     placeholder="About"
-                    className="border bg-amber-100 rounded-lg py-2 px-4 resize-none h-32"
+                    onChange={handleChange}
+                    className="border bg-amber-100 rounded-lg py-2 px-4 resize-none h-32 text-black"
                     required
                   />
                 </div>

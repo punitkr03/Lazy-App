@@ -57,23 +57,24 @@ export default function Login() {
       alert("Enter a valid mobile number")
       return
     }
-    const promise = account.create(
-      userdata.uuid,
-      userdata.email,
-      password,
-      userdata.fName+" "+userdata.lName,
-      )
-    promise.then(
-      function () {
-        database.createDocument("64ba99103e72d6d3f111",
+    
+    const promise = database.createDocument("64ba99103e72d6d3f111",
         "64ba9940623e11b2a76a",
         userdata.uuid,
         userdata
+      )
+    promise.then(
+      function () {
+        account.create(
+          userdata.uuid,
+          userdata.email,
+          password,
+          userdata.fName+" "+userdata.lName,
         )
       },
       function (error) {
         console.log(error);
-        alert("Database creation failed")
+        alert("Account creation failed")
       })
       .then(() => {
         account.createEmailSession(userdata.email, password)
@@ -87,7 +88,8 @@ export default function Login() {
         }));
       })
       .then(() => {
-        navigate("/gigs");
+        navigate("/info");
+        window.location.reload()
       })
       .catch((error) => {
         console.log(error);

@@ -7,28 +7,18 @@ Card.propTypes = {
   payout: PropTypes.number.isRequired,
   postedBy: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  creatorId: PropTypes.string.isRequired,
-  userId: PropTypes.string.isRequired,
-  cardId: PropTypes.string.isRequired
+  id: PropTypes.string.isRequired
 };
 
-export default function Card({category, description, postedBy, payout, creatorId, userId, cardId}) {
+export default function Card({category, description, postedBy, payout, id}) {
 
-  const handleAccept = () => {
-    if(userId === creatorId) {
-      alert("You cannot accept your own gig!")
-      return
-    } else {
-      database.updateDocument("64ba99103e72d6d3f111",
-      "64bbfa41435313f560e3",
-      cardId,
-      {isTakenUserId: userId})
-      .then(() => {
-          window.location.reload()
-      })
-    }
+  const handleDelete = (e) => {
+    e.preventDefault()
+    database.deleteDocument("64ba99103e72d6d3f111", "64bbfa41435313f560e3", id)
+    .then(() => {
+      window.location.reload()
+    })
   }
-
   if(category === 'food') {
     return (
       <motion.div
@@ -60,10 +50,10 @@ export default function Card({category, description, postedBy, payout, creatorId
             <span className="text-3xl mt-2 font-bold text-amber-400">{`₹${payout}`}</span>
             <a
               href="#"
-              onClick={handleAccept}
-              className="text-white mt-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"
+              onClick={handleDelete}
+              className="text-white mt-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-red-500 hover:bg-red-600 focus:bg-red-800"
             >
-              Accept
+              Delete
             </a>
           </div>
         </div>
@@ -100,10 +90,9 @@ export default function Card({category, description, postedBy, payout, creatorId
             <span className="text-3xl mt-2 font-bold text-amber-400">{`₹${payout}`}</span>
             <a
               href="#"
-              onClick={handleAccept}
-              className="text-white mt-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"
+              className="text-white mt-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-red-500 hover:bg-red-600 focus:bg-red-800"
             >
-              Accept
+              Delete
             </a>
           </div>
         </div>

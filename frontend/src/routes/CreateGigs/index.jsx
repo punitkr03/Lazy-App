@@ -14,6 +14,7 @@ export default function Login() {
     isTakenUserId: null,
     isCompleted: false,
     creatorId: user.id,
+    creatorPhone: user.mobile,
   });
   const [isCategoryValid, setIsCategoryValid] = useState(true);
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ export default function Login() {
   const handleClose = () => {
     navigate("/gigs");
   };
-
+  
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({

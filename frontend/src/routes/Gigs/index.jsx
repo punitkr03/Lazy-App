@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import Navbar from "../../components/Navbar"
 import Card from "../../components/Card"
+import CreatedCard from "../../components/CreatedCard"
+import AcceptedCard from "../../components/AcceptedCard"
+import CompletedCard from "../../components/CompletedCard"
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { database } from "../../appwrite/appwriteConfig"
@@ -36,7 +39,8 @@ export default function Gigs() {
 
   //Filter the cards
   const activeCards = allCards?.filter((card) => card.isTakenUserId === null)
-  const myCards = allCards?.filter((card) => card.isTakenUserId === user.id)
+  const myCards = allCards?.filter((card) => card.isTakenUserId === user.id && card.isCompleted === false)
+  const createdCards = allCards?.filter((card) => card.creatorId === user.id)
   const completedCards = allCards?.filter((card) => card.isCompleted === true && card.isTakenUserId===user.id)
 
   //Get cards based on active tab
@@ -51,6 +55,9 @@ export default function Gigs() {
           description={card.description} 
           category={card.category}
           postedBy={card.postedBy}
+          cardId={card.$id}
+          creatorId={card.creatorId}
+          userId={user.id}
           />
         ))}
         </>
@@ -59,20 +66,36 @@ export default function Gigs() {
       return (
         <>
         {myCards?.map((card) => (
-          <Card key={card.$id} 
+          <AcceptedCard key={card.$id} 
           payout={card.payout} 
           username={card.username} 
           description={card.description} 
           postedBy={card.postedBy}
-          category={card.category}/>
+          category={card.category}
+          id={card.$id}
+          creatorPhone={card.creatorPhone}/>
         ))}
         </>
       )
     } else if(activeTab===3) {
       return (
         <>
+        {createdCards?.map((card) => (
+          <CreatedCard key={card.$id} 
+          payout={card.payout} 
+          username={card.username} 
+          postedBy={card.postedBy}
+          description={card.description} 
+          category={card.category}
+          id={card.$id}/>
+        ))}
+        </>
+      )
+    } else if(activeTab===4) {
+      return (
+        <>
         {completedCards?.map((card) => (
-          <Card key={card.$id} 
+          <CompletedCard key={card.$id} 
           payout={card.payout} 
           username={card.username} 
           postedBy={card.postedBy}

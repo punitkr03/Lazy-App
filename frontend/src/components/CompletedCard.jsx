@@ -1,35 +1,16 @@
 import { motion } from 'framer-motion';
 import PropTypes from 'prop-types';
-import { database } from "../appwrite/appwriteConfig"
 
 Card.propTypes = {
   category: PropTypes.string,
   payout: PropTypes.number.isRequired,
   postedBy: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  creatorId: PropTypes.string.isRequired,
-  userId: PropTypes.string.isRequired,
-  cardId: PropTypes.string.isRequired
+  description: PropTypes.string.isRequired
 };
 
-export default function Card({category, description, postedBy, payout, creatorId, userId, cardId}) {
+export default function Card({category, description, postedBy, payout}) {
 
-  const handleAccept = () => {
-    if(userId === creatorId) {
-      alert("You cannot accept your own gig!")
-      return
-    } else {
-      database.updateDocument("64ba99103e72d6d3f111",
-      "64bbfa41435313f560e3",
-      cardId,
-      {isTakenUserId: userId})
-      .then(() => {
-          window.location.reload()
-      })
-    }
-  }
-
-  if(category === 'food') {
+    if(category === 'food') {
     return (
       <motion.div
         initial={{ y: 100, opacity: 0 }}
@@ -37,7 +18,7 @@ export default function Card({category, description, postedBy, payout, creatorId
         transition={{ duration: 0.5 }}
         className="w-full z-10 max-w-sm h-[400px] flex flex-col justify-end rounded-lg shadow bg-gray-800 border-gray-700"
       >
-        <a href="#">
+        <div href="#">
         <div className="flex p-1 h-auto justify-center">
           <img
             className="z-20 rounded-t-lg opacity-90"
@@ -45,9 +26,9 @@ export default function Card({category, description, postedBy, payout, creatorId
             alt="food image"
             />
           </div>
-        </a>
+        </div>
         <div className="px-5 pb-5">
-          <a href="#">
+          <div href="#">
             <h5 className="text-xl font-semibold text-purple-400">
               Food
             </h5>
@@ -55,16 +36,14 @@ export default function Card({category, description, postedBy, payout, creatorId
             <p className="text-green-400 tracking-tighter line-clamp-2 font-semibold">
               Posted by: {postedBy}
             </p>
-          </a>
+          </div>
           <div className="flex items-center justify-between">
-            <span className="text-3xl mt-2 font-bold text-amber-400">{`₹${payout}`}</span>
-            <a
-              href="#"
-              onClick={handleAccept}
-              className="text-white mt-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"
+            <span className="text-2xl mt-2 font-bold text-amber-400">{`₹${payout}`}</span>
+            <p
+              className="text-gray-500 text-base mt-2 font-medium rounded-lg px-5 py-2.5 text-center"
             >
-              Accept
-            </a>
+              Completed
+            </p>
           </div>
         </div>
       </motion.div>
@@ -77,7 +56,7 @@ export default function Card({category, description, postedBy, payout, creatorId
         transition={{ duration: 0.5 }}
         className="w-full max-w-sm h-[400px] flex flex-col justify-end rounded-lg shadow bg-gray-800 border-gray-700"
       >
-        <a href="#">
+        <div href="#">
         <div className="flex p-2 m-4 max-h-56 justify-center">
           <img
             className="z-20 rounded-t-lg opacity-70"
@@ -85,9 +64,9 @@ export default function Card({category, description, postedBy, payout, creatorId
             alt="misc image"
             />
           </div>
-        </a>
+        </div>
         <div className="px-5 pb-5">
-          <a href="#">
+          <div href="#">
             <h5 className="text-xl font-semibold text-purple-400">
               Misc
             </h5>
@@ -95,16 +74,14 @@ export default function Card({category, description, postedBy, payout, creatorId
             <p className="text-green-400 tracking-tighter line-clamp-2 font-semibold">
               Posted by: {postedBy}
             </p>
-          </a>
+          </div>
           <div className="flex items-center justify-between">
             <span className="text-3xl mt-2 font-bold text-amber-400">{`₹${payout}`}</span>
-            <a
-              href="#"
-              onClick={handleAccept}
-              className="text-white mt-2 font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-blue-600 hover:bg-blue-700 focus:ring-blue-800"
+            <p
+              className="text-gray-500 text-base mt-2 font-medium rounded-lg px-5 py-2.5 text-center"
             >
-              Accept
-            </a>
+              Completed
+            </p>
           </div>
         </div>
       </motion.div>

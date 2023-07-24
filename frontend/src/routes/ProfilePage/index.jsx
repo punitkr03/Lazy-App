@@ -12,6 +12,7 @@ export default function Info() {
   }
 
   const handleLogout = () => {
+    localStorage.clear()
     navigate('/');
   }
 
@@ -20,7 +21,6 @@ export default function Info() {
   }
   
   const user = JSON.parse(localStorage.getItem("user"))
-  console.log(user)
 
   return (
     <>
@@ -57,7 +57,7 @@ export default function Info() {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="text-amber-500 font-semibold text-3xl"
           >
-            Punit Kumar
+            {user.name}
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 100 }}
@@ -65,7 +65,7 @@ export default function Info() {
             transition={{ duration: 0.5, delay: 0.5 }}
             className="text-gray-100 text-xl"
           >
-            Mobile
+            {`+91 ${user.mobile}`}
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 100 }}
@@ -81,7 +81,7 @@ export default function Info() {
             transition={{ duration: 0.5, delay: 0.7 }}
             className="text-gray-100 text-center max-w-xs leading-5"
           >
-            Stargazer
+            {user.about}
           </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 100 }}
