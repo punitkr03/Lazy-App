@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import Footer from "../../components/Footer";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function HomePage() {
   const navigate = useNavigate();
@@ -11,6 +12,14 @@ export default function HomePage() {
   const handleSignUpClick = () => {
     navigate("/signup")
   }
+
+  useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (user) {
+      navigate("/gigs")
+    }
+  }, [0])
+
   return (
     <>
       <div className="flex flex-col justify-center items-center w-full h-screen font-semibold text-6xl bg-gray-900">
@@ -64,4 +73,4 @@ export default function HomePage() {
       <Footer />
     </>
   )
-  }
+}
