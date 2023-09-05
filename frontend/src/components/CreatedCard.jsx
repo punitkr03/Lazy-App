@@ -17,7 +17,7 @@ export default function Card({category, description, postedBy, payout, id}) {
 
   const handleDelete = (e) => {
     e.preventDefault()
-    database.deleteDocument("64ba99103e72d6d3f111", "64bbfa41435313f560e3", id)
+    database.deleteDocument(import.meta.env.VITE_DB_ID, import.meta.env.VITE_CARD_COLLECTION_ID, id)
     .then(
       function () {
       window.location.reload()

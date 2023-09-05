@@ -15,8 +15,8 @@ export default function Card({category, description, postedBy, payout, id, creat
 
     const handleComplete = (e) => {
       e.preventDefault()
-      database.updateDocument("64ba99103e72d6d3f111",
-      "64bbfa41435313f560e3",
+      database.updateDocument(import.meta.env.VITE_DB_ID,
+      import.meta.env.VITE_CARD_COLLECTION_ID,
       id,
       {isCompleted: true})
       .then(() => {

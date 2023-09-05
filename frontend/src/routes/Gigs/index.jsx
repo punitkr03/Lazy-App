@@ -17,7 +17,7 @@ export default function Gigs() {
   
   const getAllCards = async () => {
     try {
-      const promise = await database.listDocuments("64ba99103e72d6d3f111","64bbfa41435313f560e3")
+      const promise = await database.listDocuments(import.meta.env.VITE_DB_ID,import.meta.env.VITE_CARD_COLLECTION_ID)
       const data = promise.documents
       setAllCards(data)
     } catch (error) {

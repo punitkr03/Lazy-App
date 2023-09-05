@@ -16,8 +16,8 @@ export default function EditProfile({setShowModal}) {
 
     const handleSubmit = (e) => {
       e.preventDefault()
-      database.updateDocument("64ba99103e72d6d3f111",
-      "64ba9940623e11b2a76a",
+      database.updateDocument(import.meta.env.VITE_DB_ID,
+      import.meta.env.VITE_USER_COLLECTION_ID,
       user.id,
       {about: about})
       .then(() => {

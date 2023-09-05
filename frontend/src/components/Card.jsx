@@ -23,8 +23,8 @@ export default function Card({category, description, postedBy, payout, creatorId
       toast.error("You cannot accept your own gig!")
       return
     } else {
-      database.updateDocument("64ba99103e72d6d3f111",
-      "64bbfa41435313f560e3",
+      database.updateDocument(import.meta.env.VITE_DB_ID,
+      import.meta.env.VITE_CARD_COLLECTION_ID,
       cardId,
       {isTakenUserId: userId})
       .then(

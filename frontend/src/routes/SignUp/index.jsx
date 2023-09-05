@@ -6,7 +6,7 @@ import Footer from "../../components/Footer";
 //Appwrite imports
 import { account, database } from "../../appwrite/appwriteConfig";
 
-export default function Login() {
+export default function SignUp() {
   const navigate = useNavigate();
 
   const handleClose = () => {
@@ -57,9 +57,8 @@ export default function Login() {
       alert("Enter a valid mobile number")
       return
     }
-    
-    const promise = database.createDocument("64ba99103e72d6d3f111",
-        "64ba9940623e11b2a76a",
+    const promise = database.createDocument(import.meta.env.VITE_DB_ID,
+        import.meta.env.VITE_USER_COLLECTION_ID,
         userdata.uuid,
         userdata
       )

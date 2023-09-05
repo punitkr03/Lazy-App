@@ -37,7 +37,7 @@ export default function Login() {
         await account.createEmailSession(userdata.email, userdata.password);
         const currentUser = await account.get();
         if(currentUser) {
-          const user = await database.getDocument("64ba99103e72d6d3f111","64ba9940623e11b2a76a",currentUser.$id);
+          const user = await database.getDocument(import.meta.env.VITE_DB_ID,import.meta.env.VITE_USER_COLLECTION_ID,currentUser.$id);
             localStorage.setItem("user", JSON.stringify({
               id: user.$id,
               name: user.fName+" "+user.lName,
