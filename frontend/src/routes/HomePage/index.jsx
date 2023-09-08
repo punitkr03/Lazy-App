@@ -7,18 +7,18 @@ export default function HomePage() {
   const navigate = useNavigate();
 
   const handleLoginClick = () => {
-    navigate("/login")
-  }
+    navigate("/login");
+  };
   const handleSignUpClick = () => {
-    navigate("/signup")
-  }
+    navigate("/signup");
+  };
 
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
     if (user) {
-      navigate("/gigs")
+      navigate("/gigs");
     }
-  }, [0])
+  }, [0]);
 
   return (
     <>
@@ -72,5 +72,5 @@ export default function HomePage() {
       </div>
       <Footer />
     </>
-  )
+  );
 }

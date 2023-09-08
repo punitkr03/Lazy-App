@@ -1,26 +1,26 @@
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
-import { useState } from 'react';
-import EditProfile from '../../components/EditProfile';
+import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
+import { useState } from "react";
+import EditProfile from "../../components/EditProfile";
 
 export default function Info() {
   const navigate = useNavigate();
-  const [ showModal, setShowModal ] = useState(false)
+  const [showModal, setShowModal] = useState(false);
 
   const handleHome = () => {
-    navigate('/gigs');
-  }
+    navigate("/gigs");
+  };
 
   const handleLogout = () => {
-    localStorage.clear()
-    navigate('/');
-  }
+    localStorage.clear();
+    navigate("/");
+  };
 
   const handleEdit = () => {
-    setShowModal(true)
-  }
-  
-  const user = JSON.parse(localStorage.getItem("user"))
+    setShowModal(true);
+  };
+
+  const user = JSON.parse(localStorage.getItem("user"));
 
   return (
     <>
@@ -115,9 +115,7 @@ export default function Info() {
             </motion.button>
           </motion.div>
         </motion.div>
-        { showModal && 
-        <EditProfile setShowModal={setShowModal}/>
-        }
+        {showModal && <EditProfile setShowModal={setShowModal} />}
       </motion.div>
     </>
   );

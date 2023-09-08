@@ -1,14 +1,14 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
-import { database } from "../../appwrite/appwriteConfig"
-import { ID } from "appwrite"
+import { database } from "../../appwrite/appwriteConfig";
+import { ID } from "appwrite";
 //Toast notification
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Login() {
-  const user = JSON.parse(localStorage.getItem("user"))
+  const user = JSON.parse(localStorage.getItem("user"));
   const [formData, setFormData] = useState({
     category: "",
     description: "",
@@ -25,15 +25,14 @@ export default function Login() {
   const handleClose = () => {
     navigate("/gigs");
   };
-  
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevFormData) => ({
       ...prevFormData,
-      [name]: value
+      [name]: value,
     }));
   };
-
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -41,21 +40,23 @@ export default function Login() {
       setIsCategoryValid(false);
       return;
     } else {
-        setIsCategoryValid(true)
+      setIsCategoryValid(true);
     }
-    database.createDocument(import.meta.env.VITE_DB_ID,
-    import.meta.env.VITE_CARD_COLLECTION_ID,
-    ID.unique(),
-    formData,
-    )
-    .then(
-      function() {
-        navigate("/gigs")
-      },
-      function() {
-        toast.error("Something went wrong.")
-      }
-    )
+    database
+      .createDocument(
+        import.meta.env.VITE_DB_ID,
+        import.meta.env.VITE_CARD_COLLECTION_ID,
+        ID.unique(),
+        formData
+      )
+      .then(
+        function () {
+          navigate("/gigs");
+        },
+        function () {
+          toast.error("Something went wrong.");
+        }
+      );
   };
 
   return (
@@ -82,7 +83,9 @@ export default function Login() {
               className="bg-gray-700 p-8 rounded-lg shadow-lg flex flex-col"
             >
               <div className="grid grid-cols-3 justify-center mb-4">
-                <h1 className="text-2xl col-start-2 text-green-500 font-bold">Create Gig</h1>
+                <h1 className="text-2xl col-start-2 text-green-500 font-bold">
+                  Create Gig
+                </h1>
                 <button className="col-start-3" onClick={handleClose}>
                   <div className="flex justify-end">
                     <svg
@@ -118,7 +121,9 @@ export default function Login() {
                     <option value="misc">Miscellaneous</option>
                   </select>
                   {!isCategoryValid && (
-                    <p className="text-red-500 text-sm mt-1">Category is required</p>
+                    <p className="text-red-500 text-sm mt-1">
+                      Category is required
+                    </p>
                   )}
                 </div>
                 <div className="flex flex-col">
@@ -170,7 +175,7 @@ export default function Login() {
             draggable
             pauseOnHover
             theme="dark"
-            />
+          />
         </>
       )}
     </div>
